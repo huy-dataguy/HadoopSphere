@@ -1,12 +1,17 @@
 networks:
   hadoop-net:
     driver: bridge
+
 services:
   hdsphere-master:
     image: hdsphere-spark
     container_name: hdsphere-master
     hostname: quochuy026-master
-
+    volumes:
+      - hdfs_namenode:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/namenode
+      - hive_metastore:/home/hadoopquochuy026/hive/data/metastore_db
+      - hive_warehouse:/home/hadoopquochuy026/hive/warehouse
+  
     ports:
       - "60070:50070"
       - "9004:9004"
@@ -20,19 +25,29 @@ services:
     networks:
       - hadoop-net
     command: /bin/bash -c "service ssh start; tail -f /dev/null"
+    
   hdsphere-slave1:
     image: hdsphere-slave
     container_name: hdsphere-slave1
     hostname: quochuy026-slave1
+    volumes:
+      - hdfs_datanode1:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    command: /bin/bash -c "service ssh start; tail -f /dev/null"
-
+    command: "/bin/bash -c \"service ssh start; tail -f /dev/null\""
   hdsphere-slave2:
     image: hdsphere-slave
     container_name: hdsphere-slave2
     hostname: quochuy026-slave2
+    volumes:
+      - hdfs_datanode2:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    command: /bin/bash -c "service ssh start; tail -f /dev/null"
+    command: "/bin/bash -c \"service ssh start; tail -f /dev/null\""
 
+volumes:
+  hdfs_namenode:
+  hive_metastore:
+  hive_warehouse:
+  hdfs_datanode1:
+  hdfs_datanode2:

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Dừng script nếu có lỗi
+set -e 
 
 # The default node number is 3
 N=${1:-3}
@@ -21,18 +21,6 @@ if [ $? -ne 0 ]; then
     echo "Failed to start Docker Compose services. Exiting..."
     exit 1
 fi
-
-# **Chờ tất cả container khởi động hoàn tất**
-echo "Waiting for all containers to be in 'running' state..."
-while true; do
-    STATUS=$(docker compose ps --format '{{.State}}' | grep -v "running" || true)
-    if [ -z "$STATUS" ]; then
-        echo "All containers are running!"
-        break
-    fi
-    echo "Some containers are still starting. Waiting..."
-    sleep 5
-done
 
 echo "Copying workers file to master container..."
 docker cp config-hadoop/master/config/workers hdsphere-master:/home/hadoopquochuy026/hadoop/etc/hadoop/workers

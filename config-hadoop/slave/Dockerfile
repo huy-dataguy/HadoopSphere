@@ -10,11 +10,16 @@ COPY config/core-site.xml /home/hadoopquochuy026/hadoop/etc/hadoop/core-site.xml
 COPY config/hdfs-site.xml /home/hadoopquochuy026/hadoop/etc/hadoop/hdfs-site.xml
 COPY config/yarn-site.xml /home/hadoopquochuy026/hadoop/etc/hadoop/yarn-site.xml
 
+RUN mkdir -p /home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode && \
+    chown -R hadoopquochuy026:hadoopquochuy026 /home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
+
 USER root
 # Convert files to Unix format
 RUN dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/core-site.xml && \
     dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/hdfs-site.xml && \
     dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/yarn-site.xml
+
+
 # Format HDFS
 USER hadoopquochuy026
 RUN hdfs namenode -format

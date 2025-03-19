@@ -15,6 +15,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+docker build -t hdsphere-master-official:latest ./config-hadoop
+
 echo "Starting Docker Compose services..."
 docker compose -f compose-dynamic.yaml up -d
 if [ $? -ne 0 ]; then
@@ -22,19 +24,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "Copying workers file to master container..."
-docker cp config-hadoop/master/config/workers hdsphere-master:/home/hadoopquochuy026/hadoop/etc/hadoop/workers
-if [ $? -ne 0 ]; then
-    echo "Failed to copy workers file. Exiting..."
-    exit 1
-fi
-
-echo "Converting workers file to Unix format..."
-docker exec -it hdsphere-master dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/workers
-if [ $? -ne 0 ]; then
-    echo "Failed to convert workers file. Exiting..."
-    exit 1
-fi
 
 echo "Restarting the cluster..."
 docker exec -it hdsphere-master /bin/bash -c "su - hadoopquochuy026"

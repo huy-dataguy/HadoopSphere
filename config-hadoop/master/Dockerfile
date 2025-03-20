@@ -17,9 +17,6 @@ RUN dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/core-site.xml && \
     dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/yarn-site.xml && \
     dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/mapred-site.xml
 
-# Format HDFS
-USER hadoopquochuy026
-RUN hdfs namenode -format
 
 USER root
 # Start SSH and Hadoop services

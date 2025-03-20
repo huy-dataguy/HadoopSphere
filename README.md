@@ -169,6 +169,56 @@ If you see live NodeManagers, YARN is running successfully. 🚀
 
 ---
 
+
+### **Step 5: Test the System with Scripts**  
+To verify that the system is working correctly after start hdfs and yarn service, you can run the test scripts.
+
+#### **🔹 Step 1: Navigate to the Scripts Directory**  
+```sh
+cd scripts 
+```
+
+#### **🔹 Step 2: Run a Word Count Test**  
+```sh
+./word_count.sh
+```
+This script runs a sample **Word Count** job to ensure that HDFS and YARN are functioning correctly.
+
+---
+
+## **📌 Important Notes on Volumes & Containers**  
+Since the system uses **Docker Volumes** for **NameNode and DataNode**, ensure:
+- **The number of containers remains the same when restarting** (e.g., if started with 5 slaves, restart with 5 slaves).
+- If the number of slaves changes, you may face volume inconsistencies.
+
+✅ **How to Ensure the Correct Number of Containers During Restart**:
+1. **Always restart with the same number of containers**:
+    ```sh
+    ./linux/start-cluster.sh 6  # If you previously used 6 nodes
+    ```
+2. **Do not delete volumes when stopping the cluster**, use:
+
+#### 🪟 **For Windows**  
+```sh
+.\windows\stop-cluster.bat
+```
+
+#### 🐧 **For Linux**  
+```sh
+./linux/stop-cluster.sh
+```
+  Avoid using `docker compose -f compose-dynamic.yaml down -v` as it will remove NameNode & DataNode data.
+
+✅ **Check Existing Volumes**:
+```sh
+docker volume ls | grep hdfs
+```
+
+
+🚀 **If the Word Count job runs successfully, your system is fully operational!**
+
+---
+
 ## 🔄 **Modify the Owner Name**  
 If you need to change the owner name, run the `rename-owner.py` script and enter your new owner name when prompted.  
 

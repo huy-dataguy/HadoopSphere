@@ -24,12 +24,15 @@ echo "Updated workers file with $n slaves."
 # Navigate back to the root directory
 cd ../../..
 
-# Copy compose.yaml to compose-dynamic.yaml (force)
+# Copy base compose file
 cp compose.yaml compose-dynamic.yaml
 if [ $? -ne 0 ]; then
     echo "Failed to copy compose.yaml. Exiting..."
     exit 1
 fi
+
+# Remove old volumes section from compose-dynamic.yaml
+sed -i '/^volumes:/,$d' compose-dynamic.yaml
 
 # Add slave services to compose-dynamic.yaml
 for ((i=1; i<=n; i++)); do
@@ -38,11 +41,28 @@ for ((i=1; i<=n; i++)); do
     image: hdsphere-slave
     container_name: hdsphere-slave$i
     hostname: quochuy026-slave$i
+    volumes:
+      - hdfs_datanode$i:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
+    depends_on:
+      - hdsphere-master
     command: /bin/bash -c "service ssh start; tail -f /dev/null"
 
 EOL
+done
+
+# Ensure volumes section is at the end and not duplicated
+cat <<EOL >> compose-dynamic.yaml
+
+volumes:
+  hdfs_namenode:
+  hive_metastore:
+  hive_warehouse:
+EOL
+
+for ((i=1; i<=n; i++)); do
+    echo "  hdfs_datanode$i:" >> compose-dynamic.yaml
 done
 
 echo "Updated compose-dynamic.yaml with $n slave nodes."

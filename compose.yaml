@@ -12,7 +12,7 @@ services:
       - hive_metastore:/home/hadoopquochuy026/hive/data/metastore_db
       - hive_warehouse:/home/hadoopquochuy026/hive/warehouse
       - ./scripts:/home/hadoopquochuy026/scripts
-      - ./scripts:/home/hadoopquochuy026/data
+      - ./data:/home/hadoopquochuy026/data
 
     ports:
       - "60070:50070"

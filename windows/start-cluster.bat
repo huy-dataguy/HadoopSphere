@@ -15,37 +15,13 @@ if errorlevel 1 (
     exit /b 1
 )
 
+
+docker build -t hdsphere-master-official:latest ./config-hadoop
+
 echo Starting Docker Compose services...
 docker compose -f compose-dynamic.yaml up -d
 if errorlevel 1 (
     echo Failed to start Docker Compose services. Exiting...
-    exit /b 1
-)
-
-REM Wait for all containers to be in 'running' state
-echo Waiting for all containers to be in 'running' state...
-:wait_for_containers
-for /f "tokens=*" %%i in ('docker compose ps --format "{{.State}}" ^| findstr /v "running"') do (
-    set STATUS=%%i
-)
-if defined STATUS (
-    echo Some containers are still starting. Waiting...
-    timeout /t 5 >nul
-    goto wait_for_containers
-)
-echo All containers are running!
-
-echo Copying workers file to master container...
-docker cp config-hadoop\master\config\workers hdsphere-master:/home/hadoopquochuy026/hadoop/etc/hadoop/workers
-if errorlevel 1 (
-    echo Failed to copy workers file. Exiting...
-    exit /b 1
-)
-
-echo Converting workers file to Unix format...
-docker exec -it hdsphere-master dos2unix /home/hadoopquochuy026/hadoop/etc/hadoop/workers
-if errorlevel 1 (
-    echo Failed to convert workers file. Exiting...
     exit /b 1
 )
 

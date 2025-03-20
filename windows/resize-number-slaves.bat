@@ -31,17 +31,33 @@ if errorlevel 1 (
     echo Failed to copy compose.yaml. Exiting...
     exit /b 1
 )
+REM Remove old volumes section from compose-dynamic.yaml using PowerShell
+powershell -Command "(Get-Content 'compose-dynamic.yaml') | Where-Object {$_ -notmatch '^(volumes:|  hdfs_namenode:|  hive_metastore:|  hive_warehouse:)'} | Set-Content 'compose-dynamic.yaml'"
+
 
 REM Add slave services to compose-dynamic.yaml
 for /L %%i in (1,1,%n%) do (
-    echo. >> compose-dynamic.yaml
-    echo   hdsphere-slave%%i: >> compose-dynamic.yaml
-    echo     image: hdsphere-slave >> compose-dynamic.yaml
-    echo     container_name: hdsphere-slave%%i >> compose-dynamic.yaml
-    echo     hostname: quochuy026-slave%%i >> compose-dynamic.yaml
-    echo     networks: >> compose-dynamic.yaml
-    echo       - hadoop-net >> compose-dynamic.yaml
-    echo     command: /bin/bash -c "service ssh start; tail -f /dev/null" >> compose-dynamic.yaml
+    echo   hdsphere-slave%%i:>> compose-dynamic.yaml
+    echo     image: hdsphere-slave>> compose-dynamic.yaml
+    echo     container_name: hdsphere-slave%%i>> compose-dynamic.yaml
+    echo     hostname: quochuy026-slave%%i>> compose-dynamic.yaml
+    echo     volumes:>> compose-dynamic.yaml
+    echo       - hdfs_datanode%%i:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode>> compose-dynamic.yaml
+    echo     networks:>> compose-dynamic.yaml
+    echo       - hadoop-net>> compose-dynamic.yaml
+    echo     command: "/bin/bash -c \"service ssh start; tail -f /dev/null\"">> compose-dynamic.yaml
 )
+
+REM Ensure volumes section is added at the end of the file
+(
+    echo.
+    echo volumes:
+    echo   hdfs_namenode:
+    echo   hive_metastore:
+    echo   hive_warehouse:
+    for /L %%i in (1,1,%n%) do (
+        echo   hdfs_datanode%%i:
+    )
+) >> compose-dynamic.yaml
 
 echo Updated compose-dynamic.yaml with %n% slave nodes.

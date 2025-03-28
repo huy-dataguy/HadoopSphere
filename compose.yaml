@@ -9,10 +9,10 @@ services:
     hostname: quochuy026-master
     volumes:
       - hdfs_namenode:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/namenode
-      - hive_metastore:/home/hadoopquochuy026/hive/data/metastore_db
+      - hive_metastore:/home/hadoopquochuy026/hive/data
       - hive_warehouse:/home/hadoopquochuy026/hive/warehouse
       - ./scripts:/home/hadoopquochuy026/scripts
-      - ./scripts:/home/hadoopquochuy026/data
+      - ./data:/home/hadoopquochuy026/data
 
     ports:
       - "60070:50070"

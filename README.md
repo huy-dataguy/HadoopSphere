@@ -1,7 +1,4 @@
- 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 # 🚀 HadoopSphere
 A fully containerized **Hadoop, Spark, Hive, and Pig** environment for quick and efficient Big Data processing. 
 
@@ -15,7 +12,6 @@ A fully containerized **Hadoop, Spark, Hive, and Pig** environment for quick and
 - 🚀 [Installation Guide](#-installation-guide)  
 - 🔄 [Modify the Owner Name](#-modify-the-owner-name)  
 - 🌐 [Interact with the Web UI](#-interact-with-the-web-ui)  
-- ✨ [Contributors](#-contributors)  
 - 📞 [Contact](#-contact)  
 
 ---
@@ -29,7 +25,6 @@ Setting up a **Hadoop cluster** manually is frustrating, especially when integra
 ---
 
 ## 👥 **Authors**  
-- [@Quang Nguyen](https://github.com/DOCUTEE) *(Original Author)*  
 - [@Quoc Huy Nguyen](https://github.com/huy-dataguy) *(Extended with Spark, Hive, Pig)*  
 
 ---
@@ -46,16 +41,17 @@ Setting up a **Hadoop cluster** manually is frustrating, especially when integra
 
 ## 🔧 **Tech Stack**  
 - **Hadoop** (HDFS, YARN)  
-- **Spark** (Standalone Mode)  
+- **Apache Spark** (Standalone Mode)  
 - **Apache Hive** (With Derby Metastore)  
 - **Apache Pig**  
 - **Docker** (Containerized Setup)  
 
 ---
 
-## 🖥️ **OS Support**  
-- 🪟 **Windows** (via WSL2 or Docker Desktop)  
-- 🐧 **Linux** (Ubuntu, CentOS, Debian)  
+## 🖥️ **OS Support** 
+Cross-Platform Compatibility: This project leverages Docker containers, enabling seamless execution across various operating systems, including: 
+- 🪟 **Windows** via WSL2 (Windows Subsystem for Linux 2) or Docker Desktop.
+- 🐧 **Linux** Ubuntu, CentOS, Debian, and other distributions. 
 
 ---
 
@@ -78,9 +74,10 @@ Building Docker images is required only for the first time or after making chang
 
 > **⏳ Note:** The first build may take a few minutes as no cached layers exist.  
 
-#### 🪟 **For Windows**  
+#### 🪟 **For Windows** 
+- open wsl or wsl2 
 ```sh
-.\windows\build-image.bat
+./linux/build-image.sh
 ```
 
 #### 🐧 **For Linux**  
@@ -93,8 +90,9 @@ Building Docker images is required only for the first time or after making chang
 ### **Step 3: Start the Cluster**  
 
 #### 🪟 **For Windows**  
+- open wsl or wsl2 
 ```sh
-.\windows\start-cluster.bat
+./linux/start-cluster.sh
 ```
 
 #### 🐧 **For Linux**  
@@ -107,7 +105,6 @@ Building Docker images is required only for the first time or after making chang
 To start a cluster with **1 master and 5 slaves**:  
 ```sh
 ./linux/start-cluster.sh 6    # 🐧 Linux  
-.\windows\start-cluster.bat 6 # 🪟 Windows  
 ```
 
 ---
@@ -199,8 +196,9 @@ Since the system uses **Docker Volumes** for **NameNode and DataNode**, ensure:
 2. **Do not delete volumes when stopping the cluster**, use:
 
 #### 🪟 **For Windows**  
+- open wsl or wsl2 
 ```sh
-.\windows\stop-cluster.bat
+./linux/stop-cluster.sh
 ```
 
 #### 🐧 **For Linux**  
@@ -244,37 +242,7 @@ You can access the following web interfaces to monitor and manage your Hadoop cl
   Track Spark jobs, tasks, and execution performance.
 ---
 
-## ✨ Contributors
-
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-- This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
----
-
 ## 📞 **Contact**  
 📧 Email: quochuy.working@gmail.com  
 
 💬 Feel free to contribute and improve this project! 🚀
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

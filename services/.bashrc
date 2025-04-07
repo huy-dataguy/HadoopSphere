@@ -115,7 +115,7 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export HADOOP_HOME=/home/hadoopquochuy026/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin
 export PATH=$PATH:$HADOOP_HOME/sbin
@@ -140,3 +140,13 @@ export CLASSPATH=$CLASSPATH:/home/hadoopquochuy026/hive/lib/*
 export SPARK_HOME=/home/hadoopquochuy026/spark
 export PATH="$SPARK_HOME/bin:$SPARK_HOME/sbin:$PATH"
 export SPARK_DIST_CLASSPATH="$(hadoop classpath)"
+
+export HBASE_HOME=/home/hadoopquochuy026/hbase
+export PATH=$PATH:$HBASE_HOME/bin
+export HBASE_CONF_DIR=$HBASE_HOME/conf
+export CLASSPATH=$CLASSPATH:/home/hadoopquochuy026/hbase/lib/*
+
+export ZOO_HOME=/home/hadoopquochuy026/zookeeper
+export PATH=$PATH:$ZOO_HOME/bin
+export ZOO_CONF_DIR=$ZOO_HOME/conf
+export CLASSPATH=$CLASSPATH:/home/hadoopquochuy026/zookeeper/lib/*

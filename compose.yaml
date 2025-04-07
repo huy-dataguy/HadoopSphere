@@ -11,6 +11,7 @@ services:
       - hdfs_namenode:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/namenode
       - hive_metastore:/home/hadoopquochuy026/hive/data
       - hive_warehouse:/home/hadoopquochuy026/hive/warehouse
+      - zookeeper_data:/home/hadoopquochuy026/zookeeper/data
       - ./scripts:/home/hadoopquochuy026/scripts
       - ./data:/home/hadoopquochuy026/data
 
@@ -18,7 +19,7 @@ services:
       - "60070:50070"
       - "9004:9004"
       - "9870:9870"
-      - "9864:9864"
+      - "16010:16010"
       - "8042:8042"
       - "8088:8088"
       - "8080:8080"
@@ -32,3 +33,4 @@ volumes:
   hdfs_namenode:
   hive_metastore:
   hive_warehouse:
+  zookeeper_data:

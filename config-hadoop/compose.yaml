@@ -35,6 +35,14 @@ services:
     image: hdsphere-spark
     depends_on:
       - hdsphere-hive
+
+  hdsphere-master-hbase-zookeeper:
+    build: 
+      context: ../
+      dockerfile: services/hbase-zookeeper/master/Dockerfile
+    image: hdsphere-master-hbase-zookeeper
+    depends_on:
+      - hdsphere-spark
   hdsphere-slave:
     build: 
       context: ./slave
@@ -42,4 +50,12 @@ services:
     image: hdsphere-slave
     depends_on:
       - hdsphere-base
+
+  hdsphere-slave-hbase:
+    build: 
+      context: ../
+      dockerfile: services/hbase-zookeeper/slave/Dockerfile
+    image: hdsphere-slave-hbase
+    depends_on:
+      - hdsphere-slave
     

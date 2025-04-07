@@ -38,15 +38,13 @@ sed -i '/^volumes:/,$d' compose-dynamic.yaml
 for ((i=1; i<=n; i++)); do
     cat <<EOL >> compose-dynamic.yaml
   hdsphere-slave$i:
-    image: hdsphere-slave
+    image: hdsphere-slave-hbase
     container_name: hdsphere-slave$i
     hostname: quochuy026-slave$i
     volumes:
       - hdfs_datanode$i:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    depends_on:
-      - hdsphere-master
     command: /bin/bash -c "service ssh start; tail -f /dev/null"
 
 EOL
@@ -59,6 +57,7 @@ volumes:
   hdfs_namenode:
   hive_metastore:
   hive_warehouse:
+  zookeeper_data:
 EOL
 
 for ((i=1; i<=n; i++)); do

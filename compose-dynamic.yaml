@@ -9,8 +9,9 @@ services:
     hostname: quochuy026-master
     volumes:
       - hdfs_namenode:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/namenode
-      - hive_metastore:/home/hadoopquochuy026/hive/data/metastore_db
+      - hive_metastore:/home/hadoopquochuy026/hive/data
       - hive_warehouse:/home/hadoopquochuy026/hive/warehouse
+      - zookeeper_data:/home/hadoopquochuy026/zookeeper/data
       - ./scripts:/home/hadoopquochuy026/scripts
       - ./data:/home/hadoopquochuy026/data
 
@@ -18,7 +19,7 @@ services:
       - "60070:50070"
       - "9004:9004"
       - "9870:9870"
-      - "9864:9864"
+      - "16010:16010"
       - "8042:8042"
       - "8088:8088"
       - "8080:8080"
@@ -29,27 +30,30 @@ services:
     command: /bin/bash -c "service ssh start; tail -f /dev/null"
     
   hdsphere-slave1:
-    image: hdsphere-slave
+    image: hdsphere-slave-hbase
     container_name: hdsphere-slave1
     hostname: quochuy026-slave1
     volumes:
       - hdfs_datanode1:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    command: "/bin/bash -c \"service ssh start; tail -f /dev/null\""
+    command: /bin/bash -c "service ssh start; tail -f /dev/null"
+
   hdsphere-slave2:
-    image: hdsphere-slave
+    image: hdsphere-slave-hbase
     container_name: hdsphere-slave2
     hostname: quochuy026-slave2
     volumes:
       - hdfs_datanode2:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    command: "/bin/bash -c \"service ssh start; tail -f /dev/null\""
+    command: /bin/bash -c "service ssh start; tail -f /dev/null"
+
 
 volumes:
   hdfs_namenode:
   hive_metastore:
   hive_warehouse:
+  zookeeper_data:
   hdfs_datanode1:
   hdfs_datanode2:

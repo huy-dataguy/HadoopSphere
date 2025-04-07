@@ -1,36 +1,45 @@
 {
     "requiredFiles": [
-        "windows/build-image.bat",
-        "linux/build-image.sh",
         "compose-dynamic.yaml",
         "compose.yaml",
+        "hamu-config.json",
+
         "config-hadoop/compose.yaml",
         "config-hadoop/Dockerfile",
+
         "config-hadoop/hadoop-base/.bashrc",
         "config-hadoop/hadoop-base/Dockerfile",
+
         "config-hadoop/master/config/core-site.xml",
         "config-hadoop/master/config/hdfs-site.xml",
         "config-hadoop/master/config/mapred-site.xml",
         "config-hadoop/master/config/workers",
         "config-hadoop/master/config/yarn-site.xml",
         "config-hadoop/master/Dockerfile",
+
         "config-hadoop/slave/config/core-site.xml",
         "config-hadoop/slave/config/hdfs-site.xml",
         "config-hadoop/slave/config/yarn-site.xml",
         "config-hadoop/slave/Dockerfile",
-        "windows/resize-number-slaves.bat",
-        "linux/resize-number-slaves.sh",
-        "windows/start-cluster.bat",
-        "linux/start-cluster.sh",
-        "linux/stop-cluster.sh",
-        "windows/stop-cluster.bat",
-        "hamu-config.json",
+
+        "scripts/resize-number-slaves.sh",
+        "scripts/start-cluster.sh",
+       
         "services/.bashrc",
         "services/hive/Dockerfile",
         "services/hive/hive-env.sh",
         "services/hive/hive-site.xml",
+
         "services/pig/Dockerfile",
-        "services/spark/Dockerfile"
+        "services/spark/Dockerfile",
+
+        "services/hbase-zookeeper/master/Dockerfile",
+        "services/hbase-zookeeper/master/hbase-site.xml",
+        "services/hbase-zookeeper/master/zoo.cfg",
+
+        "services/hbase-zookeeper/slave/Dockerfile",
+        "services/hbase-zookeeper/slave/hbase-site.xml"
+        
     ],
     "ownerName": "quochuy026"
 }

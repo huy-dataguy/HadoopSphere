@@ -33,12 +33,12 @@
         "services/pig/Dockerfile",
         "services/spark/Dockerfile",
 
-        "hbase-zookeeper/master/Dockerfile",
-        "hbase-zookeeper/master/hbase-site.xml",
-        "hbase-zookeeper/master/zoo.cfg",
+        "services/hbase-zookeeper/master/Dockerfile",
+        "services/hbase-zookeeper/master/hbase-site.xml",
+        "services/hbase-zookeeper/master/zoo.cfg",
 
-        "hbase-zookeeper/slave/Dockerfile",
-        "hbase-zookeeper/slave/hbase-site.xml"
+        "services/hbase-zookeeper/slave/Dockerfile",
+        "services/hbase-zookeeper/slave/hbase-site.xml"
         
     ],
     "ownerName": "quochuy026"

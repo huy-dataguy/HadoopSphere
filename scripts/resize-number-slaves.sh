@@ -45,8 +45,6 @@ for ((i=1; i<=n; i++)); do
       - hdfs_datanode$i:/home/hadoopquochuy026/hadoop/hadoop_data/hdfs/datanode
     networks:
       - hadoop-net
-    depends_on:
-      - hdsphere-master
     command: /bin/bash -c "service ssh start; tail -f /dev/null"
 
 EOL
